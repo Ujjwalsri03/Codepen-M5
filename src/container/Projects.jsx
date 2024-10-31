@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import ProjectCard from "./ProjectCard";
 
 const Projects = () => {
-  const projects = useSelector((state) => state.projects?.projects);
+  const allProjects = useSelector((state) => state.projects?.projects);
   const searchTerm = useSelector((state) =>
     state.searchTerm?.searchTerm ? state.searchTerm?.searchTerm : ""
   );
+  const [projects, setProjects] = useState(allProjects); // Local state for projects
   const [filtered, setFiltered] = useState(null);
+
   useEffect(() => {
     if (searchTerm?.length > 0) {
       setFiltered(
@@ -21,21 +23,39 @@ const Projects = () => {
     } else {
       setFiltered(null);
     }
-  }, [searchTerm]);
+  }, [searchTerm, projects]);
+
+  // Handle project deletion
+  const handleDeleteProject = (projectId) => {
+    setProjects((prevProjects) =>
+      prevProjects.filter((project) => project.id !== projectId)
+    );
+  };
+
   return (
     <div className="w-full py-6 flex items-center justify-center gap-6 flex-wrap">
       {filtered ? (
         <>
           {filtered &&
             filtered.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                onDelete={handleDeleteProject} // Pass onDelete function
+              />
             ))}
         </>
       ) : (
         <>
           {projects &&
             projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                onDelete={handleDeleteProject} // Pass onDelete function
+              />
             ))}
         </>
       )}

@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../config/firebase.config";
 import { FcGoogle } from "react-icons/fc";
+import { signInWithGitHub, signInWithGoogle } from "../utils/helpers";
 
 
 
@@ -141,18 +142,18 @@ const SignUp = () => {
                   <div className='h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24'></div>
             </div>
 
-            <div  className='flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer' > 
+            <div onClick={signInWithGoogle} className='flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer' > 
                 <FcGoogle className='text-3xl'/>
                 <p className='text-[19px] text-white'>Sign in with Google</p>
             </div>
 
-            <div className='flex items-center justify-center gap-12'>
+            <div  className='flex items-center justify-center gap-12'>
                   <div className='h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24'></div>
                   <p className='text-sm text-[rgba(256,256,256,0.2)]'>OR</p> 
                   <div className='h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24'></div>
             </div>
 
-            <div  className='flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer' > 
+            <div onClick={signInWithGitHub}  className='flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer' > 
                 <FaGithub className='text-3xl text-white'/>
                 <p className='text-[19px] text-white'>Sign in with GitHub</p>
              </div>
