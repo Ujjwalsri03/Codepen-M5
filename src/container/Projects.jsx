@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; 
 import ProjectCard from "./ProjectCard";
+import { deleteProject } from "../context/actions/projectActions"; 
 
 const Projects = () => {
+  const dispatch = useDispatch(); 
   const allProjects = useSelector((state) => state.projects?.projects);
   const searchTerm = useSelector((state) =>
     state.searchTerm?.searchTerm ? state.searchTerm?.searchTerm : ""
@@ -26,7 +28,8 @@ const Projects = () => {
   }, [searchTerm, projects]);
 
   // Handle project deletion
-  const handleDeleteProject = (projectId) => {
+  const handleDeleteProject = async (projectId) => {
+    await dispatch(deleteProject(projectId)); 
     setProjects((prevProjects) =>
       prevProjects.filter((project) => project.id !== projectId)
     );
@@ -36,27 +39,25 @@ const Projects = () => {
     <div className="w-full py-6 flex items-center justify-center gap-6 flex-wrap">
       {filtered ? (
         <>
-          {filtered &&
-            filtered.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-                onDelete={handleDeleteProject} // Pass onDelete function
-              />
-            ))}
+          {filtered.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onDelete={handleDeleteProject} // Pass onDelete function
+            />
+          ))}
         </>
       ) : (
         <>
-          {projects &&
-            projects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-                onDelete={handleDeleteProject} // Pass onDelete function
-              />
-            ))}
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onDelete={handleDeleteProject} // Pass onDelete function
+            />
+          ))}
         </>
       )}
     </div>

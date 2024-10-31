@@ -10,6 +10,11 @@ const projectReducer = (state = null, action) => {
                 ...state,
                 projects: null,
             };
+        case "DELETE_PROJECT":
+            return {
+                ...state,
+                projects: state.projects.filter(project => project.id !== action.id)
+            };
         default:
             return state;
     }

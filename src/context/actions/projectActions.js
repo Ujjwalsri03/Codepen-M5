@@ -10,3 +10,9 @@ export const SET_PROJECTS_NULL = () => {
         type: "SET_PROJECTS_NULL",
     }
 }
+
+export const deleteProject = (projectId) => ({
+    type: "DELETE_PROJECT",
+    projectId, 
+});
+

@@ -10,26 +10,26 @@ import { Projects, SignUp } from "../container";
 import { useDispatch, useSelector } from "react-redux";
 import { UserProfileDetails } from "../components";
 import { SET_SEARCH_TERM } from "../context/actions/searchActions";
+import Chatbot from "../components/chatbot"; // Import Chatbot
 
 const Home = () => {
   const [isSideMenu, setIsSideMenu] = useState(false);
+  const [isChatbotVisible, setIsChatbotVisible] = useState(false); // State to manage chatbot visibility
   const user = useSelector((state) => state.user?.user);
   const searchTerm = useSelector((state) =>
     state.searchTerm?.searchTerm ? state.searchTerm?.searchTerm : ""
   );
   const dispatch = useDispatch();
+
   return (
     <>
       <div
-        className={`w-2 ${
-          isSideMenu ? "w-2" : "flex-[.2] xl:flex-[.2]"
-        } min-h-screen max-h-screen  relative bg-secondary px-3 py-6 flex
-         flex-col items-center justify-start gap-4 transition-all duration-200 ease-in-out `}
+        className={`w-2 ${isSideMenu ? "w-2" : "flex-[.2] xl:flex-[.2]"} min-h-screen max-h-screen relative bg-secondary px-3 py-6 flex flex-col items-center justify-start gap-4 transition-all duration-200 ease-in-out`}
       >
         <motion.div
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsSideMenu(!isSideMenu)}
-          className="w-8 h-8 bg-secondary  rounded-tr-lg rounded-br-lg absolute -right-6 flex items-center justify-center cursor-pointer"
+          className="w-8 h-8 bg-secondary rounded-tr-lg rounded-br-lg absolute -right-6 flex items-center justify-center cursor-pointer"
         >
           <HiChevronDoubleLeft className="text-white text-xl" />
         </motion.div>
@@ -38,20 +38,12 @@ const Home = () => {
             <img src={Logo} alt="logo" className="object-contain w-64 h-auto" />
           </Link>
           <Link to={"/newProject"}>
-            <div className="px-6 py-3 flex items-center justify-center rounded-xl 
-                border-2 border-gray-500 cursor-pointer group hover:border-gray-200 
-                animate-border-spin 
-                md:rounded-lg text-xl">
-              <p className="text-gray-300 group-hover:text-gray-200 capitalize">
-                Start Coding
-              </p>
+            <div className="px-6 py-3 flex items-center justify-center rounded-xl border-2 border-gray-500 cursor-pointer group hover:border-gray-200 animate-border-spin md:rounded-lg text-xl">
+              <p className="text-gray-300 group-hover:text-gray-200 capitalize">Start Coding</p>
             </div>
           </Link>
           {user && (
-            <Link
-              to={"/home/projects"}
-              className="flex items-center justify-center gap-6"
-            >
+            <Link to={"/home/projects"} className="flex items-center justify-center gap-6">
               <MdHome className="text-primaryText text-xl" />
               <p className="text-lg text-primaryText">Home</p>
             </Link>
@@ -67,19 +59,14 @@ const Home = () => {
             <input
               type="text"
               value={searchTerm}
-              className="flex-1 px-4 py-1 text-xl bg-transparent
-            outline-none border-none text-primaryText
-            placeholder:text-gray-600"
-              placeholder="Searh codes..."
+              className="flex-1 px-4 py-1 text-xl bg-transparent outline-none border-none text-primaryText placeholder:text-gray-600"
+              placeholder="Search codes..."
               onChange={(e) => dispatch(SET_SEARCH_TERM(e.target.value))}
             />
           </div>
           {/* Profile Section */}
           {!user && (
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              className="flex items-center justify-center gap-3"
-            >
+            <motion.div whileTap={{ scale: 0.9 }} className="flex items-center justify-center gap-3">
               <Link
                 to={"/home/auth"}
                 className="bg-emerald-500 hover:bg-emerald-700 cursor-pointer text-white px-6 py-2 rounded-md"
@@ -97,6 +84,17 @@ const Home = () => {
             <Route path="/auth" element={<SignUp />} />
           </Routes>
         </div>
+        {/* Chatbot Button */}
+        <div className="fixed bottom-4 right-4">
+          <button
+            onClick={() => setIsChatbotVisible(!isChatbotVisible)}
+            className="bg-emerald-500 text-white p-3 rounded-full shadow-lg"
+          >
+            Chat
+          </button>
+        </div>
+        {/* Chatbot Component */}
+        {isChatbotVisible && <Chatbot onClose={() => setIsChatbotVisible(false)} />}
       </div>
     </>
   );
