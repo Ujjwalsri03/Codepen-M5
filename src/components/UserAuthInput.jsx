@@ -38,11 +38,11 @@ const UserAuthInput = ({
           "border-2 border-red-500"
         } `}
       >
-        <Icon className="text-text555 text-2xl" />
+        <Icon className="text-text555 text-xl" />
         <input
           type={isPass && showPass ? "password" : "text"}
           placeholder={placeHolder}
-          className="flex-1 w-full h-full py-2 outline-none border-none bg-transparent text-lg text-text555"
+          className="flex-1 w-full h-full py-1 outline-none border-none bg-transparent text-lg text-text555"
           value={value}
           onChange={handleTextChange}
         />
@@ -53,9 +53,9 @@ const UserAuthInput = ({
             className="cursor-pointer"
           >
             {showPass ? (
-              <FaEyeSlash className="text-text555 text-2xl" />
+              <FaEyeSlash className="text-text555 text-xl" />
             ) : (
-              <FaEye className="text-text555 text-2xl" />
+              <FaEye className="text-text555 text-xl" />
             )}
           </motion.div>
         )}
