@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { HiChevronDoubleLeft } from "react-icons/hi2";
 import { FaSearchengin } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom"; // Updated imports
 import { Logo } from "../assets";
 import { MdHome } from "react-icons/md";
-import { Routes, Route } from "react-router-dom";
 import { Projects, SignUp } from "../container";
 import { useDispatch, useSelector } from "react-redux";
 import { UserProfileDetails } from "../components";
@@ -20,11 +19,14 @@ const Home = () => {
     state.searchTerm?.searchTerm ? state.searchTerm?.searchTerm : ""
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Used for navigation on button click
 
   return (
     <>
       <div
-        className={`w-2 ${isSideMenu ? "w-2" : "flex-[.2] xl:flex-[.2]"} min-h-screen max-h-screen relative bg-secondary px-3 py-4 flex flex-col items-center justify-start gap-4 transition-all duration-200 ease-in-out`}
+        className={`w-2 ${
+          isSideMenu ? "w-2" : "flex-[.2] xl:flex-[.2]"
+        } min-h-screen max-h-screen relative bg-secondary px-3 py-4 flex flex-col items-center justify-start gap-4 transition-all duration-200 ease-in-out`}
       >
         <motion.div
           whileTap={{ scale: 0.9 }}
@@ -60,19 +62,22 @@ const Home = () => {
               type="text"
               value={searchTerm}
               className="flex-1 px-3 py-1 text-base bg-transparent outline-none border-none text-primaryText placeholder:text-gray-600"
-              placeholder="Search codes..."
+              placeholder="Search Projects..."
               onChange={(e) => dispatch(SET_SEARCH_TERM(e.target.value))}
             />
           </div>
           {/* Profile Section */}
           {!user && (
-            <motion.div whileTap={{ scale: 0.9 }} className="flex items-center justify-center gap-3">
-              <Link
-                to={"/home/auth"}
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center justify-center gap-3"
+            >
+              <button
+                onClick={() => navigate("/home/auth")}
                 className="bg-emerald-500 hover:bg-emerald-600 cursor-pointer text-white px-4 py-2 rounded-md transition-all duration-150"
               >
                 SignUp
-              </Link>
+              </button>
             </motion.div>
           )}
           {user && <UserProfileDetails />}

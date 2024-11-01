@@ -65,7 +65,7 @@ const NewProject = () => {
         return (
           <CodeMirror
             value={html}
-            height="500px"
+            height="420px"
             theme={"dark"}
             extensions={[javascript({ jsx: true })]}
             onChange={(value) => setHtml(value)}
@@ -75,7 +75,7 @@ const NewProject = () => {
         return (
           <CodeMirror
             value={css}
-            height="500px"
+            height="420px"
             theme={"dark"}
             extensions={[javascript({ jsx: true })]}
             onChange={(value) => setCss(value)}
@@ -85,7 +85,7 @@ const NewProject = () => {
         return (
           <CodeMirror
             value={js}
-            height="500px"
+            height="420px"
             theme={"dark"}
             extensions={[javascript({ jsx: true })]}
             onChange={(value) => setJs(value)}
@@ -150,11 +150,12 @@ const NewProject = () => {
               {renderEditor("JS")}
             </div>
           </div>
-          <div className="flex-grow bg-white">
+          <div className="flex-grow  bg-white"  style={{ overflowY: "auto", height: "100%" }}>
             <iframe
               title="Output"
               srcDoc={output}
-              style={{ border: "none", width: "100%", height: "100%" }}
+              style={{ border: "none", width: "100%", height: "100%" , overflow: "auto" }}
+
             />
           </div>
         </div>

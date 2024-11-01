@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Logo } from "../assets";
 import { UserAuthInput } from "../components";
-import { FaEnvelope, FaGithub} from "react-icons/fa6";
+import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { MdPassword } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -12,16 +12,13 @@ import { auth } from "../config/firebase.config";
 import { FcGoogle } from "react-icons/fc";
 import { signInWithGitHub, signInWithGoogle } from "../utils/helpers";
 
-
-
-
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [getEmailValidationStatus, setIsEmailValidationStatus] =
-    useState(false);
+  const [getEmailValidationStatus, setIsEmailValidationStatus] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [alertError, setAlertError] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false); // New state for success alert
 
   const createNewUser = async () => {
     if (getEmailValidationStatus) {
@@ -29,9 +26,15 @@ const SignUp = () => {
         .then((userCred) => {
           if (userCred) {
             console.log(userCred);
+            setAlertSuccess(true); // Show success alert on registration
+            setTimeout(() => setAlertSuccess(false), 4000); // Auto hide after 4 seconds
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          setAlertError(true); // Handle errors as needed
+          setTimeout(() => setAlertError(false), 4000); // Auto hide after 4 seconds
+        });
     }
   };
 
@@ -47,10 +50,7 @@ const SignUp = () => {
         .catch((err) => {
           console.log(err);
           setAlertError(true);
-
-          setInterval(() => {
-            setAlertError(false);
-          }, 4000);
+          setTimeout(() => setAlertError(false), 4000); // Auto hide after 4 seconds
         });
     }
   };
@@ -62,9 +62,9 @@ const SignUp = () => {
         className="object-contain w-32 opacity-50 h-auto"
         alt="logo"
       />
-      <div className="w-full flex flex-col items-center justify-center py-1 ">
+      <div className="w-full flex flex-col items-center justify-center py-1">
         <p className="py-3 text-xl text-primaryText"> Register Here...</p>
-        <div className="px-8 w-full md:w-auto py-3 rounded-xl bg-secondary shadow-md flex flex-col justify-center items-center gap-3 ">
+        <div className="px-8 w-full md:w-auto py-3 rounded-xl bg-secondary shadow-md flex flex-col justify-center items-center gap-3">
           <UserAuthInput
             label="Email"
             placeHolder="Email"
@@ -84,7 +84,7 @@ const SignUp = () => {
           />
 
           <AnimatePresence>
-            {alertError ? (
+            {alertError && (
               <motion.p
                 key={"AlertMessage"}
                 initial={{ opacity: 0 }}
@@ -94,7 +94,18 @@ const SignUp = () => {
               >
                 Invalid User or Password
               </motion.p>
-            ) : null}
+            )}
+            {alertSuccess && (
+              <motion.p
+                key={"SuccessMessage"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-green-500"
+              >
+                User registered successfully!
+              </motion.p>
+            )}
           </AnimatePresence>
 
           {!isLogin ? (
@@ -126,7 +137,7 @@ const SignUp = () => {
             </p>
           ) : (
             <p className="text-sm text-primaryText flex items-center justify-center gap-3">
-              Don't have account!{" "}
+              Don't have an account!{" "}
               <span
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-emerald-500 cursor-pointer"
@@ -136,27 +147,33 @@ const SignUp = () => {
             </p>
           )}
 
-            <div className='flex items-center justify-center gap-12'>
-                  <div className='h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24'></div>
-                  <p className='text-sm text-[rgba(256,256,256,0.2)]'>OR</p> 
-                  <div className='h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24'></div>
-            </div>
+          <div className="flex items-center justify-center gap-12">
+            <div className="h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24"></div>
+            <p className="text-sm text-[rgba(256,256,256,0.2)]">OR</p>
+            <div className="h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24"></div>
+          </div>
 
-            <div onClick={signInWithGoogle} className='flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer' > 
-                <FcGoogle className='text-2xl'/>
-                <p className='text-[17px] text-white'>Sign in with Google</p>
-            </div>
+          <div
+            onClick={signInWithGoogle}
+            className="flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer"
+          >
+            <FcGoogle className="text-2xl" />
+            <p className="text-[17px] text-white">Sign in with Google</p>
+          </div>
 
-            <div  className='flex items-center justify-center gap-10'>
-                  <div className='h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24'></div>
-                  <p className='text-sm text-[rgba(256,256,256,0.2)]'>OR</p> 
-                  <div className='h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24'></div>
-            </div>
+          <div className="flex items-center justify-center gap-10">
+            <div className="h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24"></div>
+            <p className="text-sm text-[rgba(256,256,256,0.2)]">OR</p>
+            <div className="h-[1px] bg-[rgba(256,256,256,0.2)] rounded-md w-24"></div>
+          </div>
 
-            <div onClick={signInWithGitHub}  className='flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer' > 
-                <FaGithub className='text-2xl text-white'/>
-                <p className='text-[17px] text-white'>Sign in with GitHub</p>
-             </div>
+          <div
+            onClick={signInWithGitHub}
+            className="flex items-center justify-center gap-3 bg-[rgba(256,256,256,0.2)] backdrop-blur-md w-full py-2 rounded-xl hover:bg-[rgba(256,256,256,0.5)] cursor-pointer"
+          >
+            <FaGithub className="text-2xl text-white" />
+            <p className="text-[17px] text-white">Sign in with GitHub</p>
+          </div>
         </div>
       </div>
     </div>

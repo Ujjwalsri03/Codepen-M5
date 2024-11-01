@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FaTrash } from "react-icons/fa";
 
 const ProjectCard = ({ project, index, onDelete }) => {
+  console.log("Project Data:", project);
   return (
     <motion.div
       key={index}
