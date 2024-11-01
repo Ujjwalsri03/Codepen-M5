@@ -68,3 +68,21 @@ Run the development server:
 
 npm run dev
 Open http://localhost:5173 to view it in the browser.
+
+## 💡 Future Enhancements
+Some features planned for future updates:
+
+- **Collaboration Mode:** Allow multiple users to edit the code simultaneously.
+- **Code History and Versioning:** Enable users to view previous versions of their code.
+- **Enhanced AI Capabilities:** Integrate more sophisticated AI models to provide better responses.
+
+## 🎉 Acknowledgments
+- **Gemini AI:** For powering the chatbot’s intelligence and responses.
+- **Firebase:** For project data storage and user authentication.
+- **React and Redux Toolkit:** For providing a robust framework for UI and state management.
+
+## 📄 License
+This project is licensed under the MIT License.
+
+## 📬 Contact
+For any questions or feedback, please reach out via [LinkedIn](https://www.linkedin.com/in/ujjawal-shriwastav-985378247/).
