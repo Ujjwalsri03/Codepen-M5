@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 
-const API_KEY = "AIzaSyB78a57xD0eADE3jcZ0ZS38NNKSHQDjjiQ"; // Replace with your API key
+const API_KEY = "AIzaSyB78a57xD0eADE3jcZ0ZS38NNKSHQDjjiQ"; 
 const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const MAX_RETRIES = 3; // Set a maximum number of retries
+  const MAX_RETRIES = 3; 
 
   const handleSendMessage = async (retryCount = 0) => {
     if (input.trim()) {
-      // Add user message
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: input.trim(), sender: "user" },
       ]);
-      // Clear input
       setInput("");
 
-      // Show loading indicator for AI response
       const loadingMessage = { text: "AI is typing...", sender: "ai" };
       setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
@@ -36,10 +33,9 @@ const Chatbot = () => {
           }),
         });
 
-        // Handle rate limiting
         if (response.status === 429) {
           if (retryCount < MAX_RETRIES) {
-            setTimeout(() => handleSendMessage(retryCount + 1), 5000); // Retry after 5 seconds
+            setTimeout(() => handleSendMessage(retryCount + 1), 5000); 
           } else {
             setMessages((prevMessages) => [
               ...prevMessages,
@@ -49,16 +45,13 @@ const Chatbot = () => {
           return;
         }
 
-        // Check for other response errors
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        // Check if the expected structure is present
         if (data.candidates?.length > 0) {
           const aiResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1");
-          // Update messages with AI response
           setMessages((prevMessages) =>
             prevMessages.map((msg) =>
               msg.sender === "ai" && msg.text === "AI is typing..." ? { text: aiResponse, sender: "ai" } : msg
@@ -68,7 +61,6 @@ const Chatbot = () => {
           throw new Error("Unexpected API response format.");
         }
       } catch {
-        // Handle error response appropriately (e.g., show error message)
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: "Sorry, I couldn't respond. Please try again.", sender: "ai" },
@@ -106,10 +98,10 @@ const Chatbot = () => {
       </div>
       <style jsx>{`
         .messages::-webkit-scrollbar {
-          display: none; /* Hides scrollbar in WebKit browsers */
+          display: none; 
         }
         .messages {
-          scrollbar-width: none; /* Hides scrollbar in Firefox */
+          scrollbar-width: none; 
         }
       `}</style>
     </div>

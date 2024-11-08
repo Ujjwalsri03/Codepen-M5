@@ -26,14 +26,14 @@ const SignUp = () => {
         .then((userCred) => {
           if (userCred) {
             console.log(userCred);
-            setAlertSuccess(true); // Show success alert on registration
-            setTimeout(() => setAlertSuccess(false), 4000); // Auto hide after 4 seconds
+            setAlertSuccess(true); 
+            setTimeout(() => setAlertSuccess(false), 4000); 
           }
         })
         .catch((err) => {
           console.log(err);
-          setAlertError(true); // Handle errors as needed
-          setTimeout(() => setAlertError(false), 4000); // Auto hide after 4 seconds
+          setAlertError(true); 
+          setTimeout(() => setAlertError(false), 4000); 
         });
     }
   };

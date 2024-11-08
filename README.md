@@ -19,9 +19,9 @@ Here are a few visuals to give you a sense of how the project functions:
 - **Project Management and Saving**
 - **User Authentication via Google and GitHub**
 
-> ![Editor Screenshot 1](path/to/screenshot1.png)
-> ![Editor Screenshot 2](path/to/screenshot2.png)
-> ![Chatbot Screenshot](path/to/chatbot_screenshot.png)
+> ![Editor Screenshot 1]()
+> ![Editor Screenshot 2]()
+> ![Chatbot Screenshot]()
 
 ---
 

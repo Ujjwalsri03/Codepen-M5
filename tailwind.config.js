@@ -19,7 +19,7 @@ module.exports = {
         },
       },
       animation: {
-        'border-spin': 'border-spin 2s linear infinite',
+        'border-spin': 'border-spin 2`s linear infinite',
       },
     },
   },

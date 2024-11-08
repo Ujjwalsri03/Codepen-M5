@@ -13,7 +13,6 @@ const ProjectCard = ({ project, index, onDelete }) => {
       transition={{ duration: 0.5, delay: index * 0.5 }}
       className="w-full cursor-pointer md:w-[450px] h-[375px] bg-secondary rounded-md p-4 flex flex-col items-center justify-center gap-4 relative group"
     >
-      {/* Delete button, appears on hover */}
       <button
         onClick={() => onDelete(project.id)}
         className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { HiChevronDoubleLeft } from "react-icons/hi2";
 import { FaSearchengin } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { Link, Routes, Route, useNavigate } from "react-router-dom"; // Updated imports
+import { Link, Routes, Route, useNavigate } from "react-router-dom"; 
 import { Logo } from "../assets";
 import { MdHome } from "react-icons/md";
 import { Projects, SignUp } from "../container";
@@ -19,7 +19,7 @@ const Home = () => {
     state.searchTerm?.searchTerm ? state.searchTerm?.searchTerm : ""
   );
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Used for navigation on button click
+  const navigate = useNavigate(); 
 
   return (
     <>

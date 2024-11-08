@@ -27,7 +27,7 @@ const Projects = () => {
     }
   }, [searchTerm, projects]);
 
-  // Handle project deletion
+  
   const handleDeleteProject = async (projectId) => {
     await dispatch(deleteProject(projectId)); 
     setProjects((prevProjects) =>
@@ -44,7 +44,7 @@ const Projects = () => {
               key={project.id}
               project={project}
               index={index}
-              onDelete={handleDeleteProject} // Pass onDelete function
+              onDelete={handleDeleteProject} 
             />
           ))}
         </>
@@ -55,7 +55,7 @@ const Projects = () => {
               key={project.id}
               project={project}
               index={index}
-              onDelete={handleDeleteProject} // Pass onDelete function
+              onDelete={handleDeleteProject} 
             />
           ))}
         </>
